@@ -76,7 +76,7 @@ function DetailChar() {
                                     </tr>
                                 </tbody>
                             </Table>
-                            <Button as={Link} to="/char/create" variant="success" className="mb-3">Choose Location</Button>
+                            <Button as={Link} to={`/char/create/${name}/${id}`} variant="success" className="mb-3">Choose Location</Button>
                         </Card.Body>
                     </Card>
                 </Col>

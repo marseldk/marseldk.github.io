@@ -2,20 +2,15 @@
 import { useState, useEffect } from 'react';
 
 //import react router dom
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 //import component Bootstrap React
 import { Card, Container, Row, Col, Table } from 'react-bootstrap';
 
-function PostIndex() {
+function LocationDetail() {
 
     //define state
     const [posts, setPosts] = useState([]);
-    let lokasi = ""
-
-    if (JSON.parse(localStorage.getItem("username1"))){
-        lokasi = JSON.parse(localStorage.getItem("username1"))
-    }
     // const lokasi = JSON.parse(localStorage.getItem("username1"))
 
     let lokasi2 = ""
@@ -23,6 +18,16 @@ function PostIndex() {
     if (JSON.parse(localStorage.getItem("username2"))){
         lokasi2 = JSON.parse(localStorage.getItem("username2"))
     }
+
+    let lokasi = ""
+
+    if (JSON.parse(localStorage.getItem("username1"))){
+        lokasi = JSON.parse(localStorage.getItem("username1"))
+    }
+
+
+    const { lokasiparam } = useParams();
+    // console.log(lokasiparam)
 
     return (
         <Container className="mt-3">
@@ -33,30 +38,31 @@ function PostIndex() {
                             <Table striped bordered hover className="mb-1">
                                 <thead>
                                     <tr>
-                                        <th colspan="2">Location</th>
+                                        <th colspan="2">List Person In {lokasiparam}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 {
                                     (() => {
-                                        if(lokasi.location == lokasi2.location || lokasi2.location == null){
+                                        if(lokasi.location == lokasi2.location){
                                             return(
                                                 <tr>
-                                                <td><Link to={`/location/${lokasi.location}`}>{lokasi.location}</Link></td>
+                                                <td>{lokasi.name}</td>
+                                                <td>{lokasi2.name}</td>
                                                 </tr>
                                             )
-                                        }else if (lokasi.location == lokasi2.location || lokasi.location == null) {
-                                            return(
+                                        }
+                                        else if(lokasi.location == lokasiparam){
+                                            return (
                                                 <tr>
-                                                <td><Link to={`/location/${lokasi2.location}`}>{lokasi2.location}</Link></td>
-                                                </tr>
+                                                <td>{lokasi.name}</td>
+                                                </tr> 
                                             )
                                         }
                                         else{
                                             return(
                                                 <tr>
-                                                <td><Link to={`/location/${lokasi.location}`}>{lokasi.location}</Link></td>
-                                                <td><Link to={`/location/${lokasi2.location}`}>{lokasi2.location}</Link></td>
+                                                <td>{lokasi2.name}</td>
                                                 </tr>
                                             )
                                         } 
@@ -72,4 +78,4 @@ function PostIndex() {
     );
 }
 
-export default PostIndex;
+export default LocationDetail;

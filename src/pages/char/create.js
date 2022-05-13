@@ -8,12 +8,12 @@ import { Card, Container, Row, Col , Form, Button, Alert } from 'react-bootstrap
 import axios from 'axios';
 
 //import hook history dari react router dom
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 function CreateLocation() {
 
     //state
-    const [name, setName] = useState('');
+    // const [name1, setName] = useState('');
     const [location, setLocation] = useState('');
 
     //state validation
@@ -25,10 +25,15 @@ function CreateLocation() {
     //method "storePost"
     const storeLocation = async (e) => {
         e.preventDefault();
-        
+        const name1 = document.getElementById('formBasicEmail').value;
+        const id = document.getElementById('formBasicId').value;
+        const data = {name:name1, location:location, id:id}
+        // console.log(data)
+        localStorage.setItem(`username${id}`, JSON.stringify(data))
+        history.push(`/posts`);
         //send data to server
-        await axios.post('http://localhost:3000/api/posts/store', {
-            name: name,
+        /*await axios.post('http://localhost:3000/api/posts/store', {
+            name: name1,
             location: location
         })
         .then(() => {
@@ -41,9 +46,13 @@ function CreateLocation() {
 
             //assign validation on state
             setValidation(error.response.data);
-        })
+        })*/
         
     };
+
+    const { name } = useParams();
+
+    const { id } = useParams();
 
     return (
         <Container className="mt-3">
@@ -51,22 +60,15 @@ function CreateLocation() {
                 <Col md="{12}">
                     <Card className="border-0 rounded shadow-sm">
                         <Card.Body>
-                        
-                            {
-                                validation.errors &&
-                                    <Alert variant="danger">
-                                        <ul class="mt-0 mb-0">
-                                            { validation.errors.map((error, index) => (
-                                                <li key={index}>{ `${error.param} : ${error.msg}` }</li>
-                                            )) }
-                                        </ul>
-                                    </Alert>
-                            }
-                            
                             <Form onSubmit={ storeLocation }>
+                                <Form.Group className="mb-3" controlId="formBasicId" hidden>
+                                    <Form.Label>Name</Form.Label>
+                                    <Form.Control type="text" value={id} readOnly/>
+                                </Form.Group>
+
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label>Name</Form.Label>
-                                    <Form.Control type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Masukkan Name" />
+                                    <Form.Control type="text" value={name} readOnly/>
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="formBasicPassword">
