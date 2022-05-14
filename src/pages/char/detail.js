@@ -20,15 +20,6 @@ function DetailChar() {
         //get response data
         const data = await response.json()
         const users = data.results
-        // console.log(users.length)
-        /* const userstest = Array() */
-        /* const i = 0
-        for(i=0 ; i<users.length; i++) {
-            console.log("test")
-            if (users[i].id != 1)continue
-            const userstest = users[i]
-            setChars1(userstest);
-        } */
         //assign response data to state "posts"
         setChars(users);
     }
@@ -54,7 +45,19 @@ function DetailChar() {
                     <Card className="border-0 rounded shadow-sm">
                         <Card.Body>
                             <h3>Character Detail</h3>
-                            <Table autoWidth striped bordered hover>
+                                <Card>
+                                <Card.Header>{name}</Card.Header>
+                                <Card.Body>
+                                    <center>
+                                    <Image src={"https://rickandmortyapi.com/api/character/avatar/" + id + ".jpeg"} className='img-fluid rounded'/>
+                                    <Card.Text>Gender : {gender}</Card.Text>
+                                    <Card.Text>Species : {species}</Card.Text>
+                                    <Card.Text>Status : {status}</Card.Text>
+                                    </center>
+                                </Card.Body>
+                                </Card>
+                                <br />
+                            {/*<Table autoWidth striped bordered hover>
                                 <thead>
                                     <tr>
                                         <th>No.</th>
@@ -75,8 +78,8 @@ function DetailChar() {
                                     <td>{status}</td>
                                     </tr>
                                 </tbody>
-                            </Table>
-                            <Button as={Link} to={`/char/create/${name}/${id}`} variant="success" className="mb-3">Choose Location</Button>
+    </Table>*/}
+                            <Button as={Link} to={`/char/create/${name}/${id}`} variant="outline-info" className="mb-3">Choose Location</Button>
                         </Card.Body>
                     </Card>
                 </Col>

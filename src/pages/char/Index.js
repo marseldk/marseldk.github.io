@@ -27,6 +27,7 @@ function IndexChar() {
         fectData()
     }, [])
 
+    console.log(chars[0])
     return (
         <Container className="mt-3">
             <Row>
@@ -34,7 +35,6 @@ function IndexChar() {
                     <Card className="border-0 rounded shadow-sm">
                         <Card.Body>
                             <h3>Character List</h3>
-                            {/*<Button as={Link} to="/posts/create" variant="success" className="mb-3">TAMBAH POST</Button>*/}
                             <Table striped bordered hover className="mb-1">
                                 <thead>
                                     <tr>
@@ -47,7 +47,14 @@ function IndexChar() {
                                     { chars.map((char, index) => (
                                         <tr key={ char.id }>
                                             <td>{ index + 1 }</td>
-                                            <Link to={`/detail/${char.id}/${char.name}/${char.status}/${char.gender}/${char.species}`}><td><Image style={{height:'auto', width:'auto'}} src={char.image} className='img-fluid rounded'/></td></Link>
+                                            <Link to={`/detail/${char.id}/${char.name}/${char.status}/${char.gender}/${char.species}`}><td>
+                                            <Image style={{height:'auto', width:'auto'}} src={char.image} className='img-fluid rounded'/>
+                                            <div className='mask' style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}>
+                                            <div className='d-flex justify-content-center align-items-center h-100'>
+                                            <p className='text-white mb-0'>Can you see me? Please click me!</p>
+                                            </div>
+                                            </div>
+                                            </td></Link>
                                             <td>{ char.name }</td>
                                         </tr>
                                     )) }
